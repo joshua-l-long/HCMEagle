@@ -1,7 +1,6 @@
 {
     "image":"mcr.microsoft.com/devcontainers/universal:2",
-	"workspaceFolder": "/workspace",
-    "postCreateCommand": "npm install -g npm@11.6.2 && npm install -g @angular/cli",
+    "postCreateCommand": "npm install -g npm@11.6.2 && npm install -g @angular/cli && dotnet tool install --global dotnet-ef",
     "features": {
         "ghcr.io/devcontainers/features/docker-in-docker:latest": {},
         "ghcr.io/devcontainers/features/github-cli:1": {
@@ -23,11 +22,23 @@
                 "mtxr.sqltools",
                 "mtxr.sqltools-driver-pg"
             ]
-        }
+        },
+        "settings": {
+                "sqltools.connections": [
+                    {
+                        "name": "PostgreSQL",
+                        "driver": "PostgreSQL",
+                        "previewLimit": 50,
+                        "server": "localhost",
+                        "port": 5432,
+                        "database": "Contacts",
+                        "username": "sa",
+                        "password": "PasYourPassword123!"
+                    }
+                ]
+            }
     },
     "forwardPorts": [
-        5000,
-        4200,
         5432
     ]
 }
