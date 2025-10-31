@@ -1,0 +1,33 @@
+{
+    "image":"mcr.microsoft.com/devcontainers/universal:2",
+	"workspaceFolder": "/workspace",
+    "postCreateCommand": "npm install -g npm@11.6.2 && npm install -g @angular/cli",
+    "features": {
+        "ghcr.io/devcontainers/features/docker-in-docker:latest": {},
+        "ghcr.io/devcontainers/features/github-cli:1": {
+            "version": "2"
+        },
+        "ghcr.io/devcontainers/features/powershell:1": {
+            "version": "latest"
+        },
+        "ghcr.io/devcontainers/features/dotnet:1": {
+              "version": "9.0"
+        }
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "GitHub.copilot",
+                "GitHub.vscode-github-actions",
+                "ms-dotnettools.csdevkit",
+                "mtxr.sqltools",
+                "mtxr.sqltools-driver-pg"
+            ]
+        }
+    },
+    "forwardPorts": [
+        5000,
+        4200,
+        5432
+    ]
+}
