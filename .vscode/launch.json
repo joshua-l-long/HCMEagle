@@ -66,13 +66,13 @@
             "processId": "${command:pickRemoteProcess}",
             "pipeTransport": {
                 "pipeProgram": "docker",
-                "pipeArgs": ["exec", "-i", "api"],
-                "debuggerPath": "/usr/local/bin/vsdbg",
+                "pipeArgs": ["exec", "-i", "api-dev"],
+                "debuggerPath": "/vsdbg/vsdbg",
                 "pipeCwd": "${workspaceFolder}",
                 "quoteArgs": false
             },
             "sourceFileMap": {
-                "/app": "${workspaceFolder}/backend/src"
+                "/src": "${workspaceFolder}/backend/src"
             }
         }
 

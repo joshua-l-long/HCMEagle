@@ -10,9 +10,26 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var MyAllowdOrigins = "AllowedOrigins";
+builder.Services.AddCors(options =>
+    {
+        options.AddPolicy(name: MyAllowdOrigins,
+            policy =>
+            {
+                //policy.WithOrigins("http://localhost:4200", "http://172.18.0.4:4200", "https://ghastly-poltergeist-wrqj6745q7rq3vvwp-4200.app.github.dev", "https://locahost:4200")
+                //        .AllowAnyHeader()
+                //        .AllowAnyMethod()
+                //        .AllowAnyOrigin();
+                policy.AllowAnyOrigin()
+                      .AllowAnyMethod()
+                      .AllowAnyHeader();
+            });
+    });
 // Add services to the container.
 builder.Services.AddInfrastrcutureServices(builder.Configuration);
 builder.Services.AddApplicationServices(builder.Configuration);
+
+
 
 var appSettings = builder.Configuration.GetSection("AppSettings").Get<Contact.Application.AppSettings>();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -67,12 +84,14 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseCors(MyAllowdOrigins);
 app.UseMiddleware<ExceptionMiddleware>();
 app.UseMiddleware<ActivityLoggingMiddleware>();
 app.UseHttpsRedirection();

@@ -3,6 +3,8 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
+    container_name: frontend
+    restart: always
     depends_on:
       - api
     networks:
@@ -12,8 +14,8 @@ services:
     build:
       context: ./backend/src
       dockerfile: Dockerfile
-      args:
-        - configuration=Release
+    container_name: api
+    restart: always
     environment:
       - ASPNETCORE__ENVIRONMENT=${ENVIRONMENT}
       - AppSettings__ConnectionStrings__DefaultConnection=Host=${POSTGRES_HOST};Port=${POSTGRES_PORT};Database=${POSTGRES_DB};Username=${POSTGRES_USER};Password=${POSTGRES_PASSWORD}
@@ -35,6 +37,7 @@ services:
   postgres:
     image: postgres:16-alpine
     container_name: postgres_db
+    restart: always
     environment:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
@@ -48,7 +51,9 @@ services:
       - postgres_network
   
   nginx:
-    build: loadbalancer
+    build:
+      context: ./loadbalancer
+      dockerfile: Dockerfile
     container_name: nginx
     restart: always
     ports:

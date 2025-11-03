@@ -1,0 +1,38 @@
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.development
+    container_name: frontend-dev
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    ports:
+      - "4200:4200"
+    command: npm run serve
+    environment:
+      - NODE_ENV=development
+
+  api:
+    build:
+      context: ./backend/src
+      dockerfile: Dockerfile.development
+    container_name: api-dev
+    volumes:
+      - ./backend/src:/src
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - DOTNET_WATCH=1
+    ports:
+      - "8000:8000"
+    command: dotnet watch run --urls="http://+:8000"
+
+  postgres:
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_dev_data:/var/lib/postgresql/data
+      - ./backend/scripts:/docker-entrypoint-initdb.d
+
+volumes:
+  postgres_dev_data:

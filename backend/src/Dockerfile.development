@@ -1,0 +1,28 @@
+# Stage 2: Development environment (optional, for running with SDK tools)
+FROM mcr.microsoft.com/dotnet/sdk:9.0 AS dev
+
+# Install vsdbg for debugging (only in the debug stage, if using multi-stage builds)
+# If not using multi-stage builds, this can be part of your main image build
+# Update apt-get and install necessary tools for vsdbg
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+        unzip \
+        procps \
+        curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Create a directory for vsdbg and install it
+RUN mkdir -p /vsdbg \
+    && curl -sSL https://aka.ms/getvsdbgsh | bash /dev/stdin -v latest -l /vsdbg
+    
+WORKDIR "/src/Contact.Api"
+
+# Expose ports for debugging or web applications
+EXPOSE 8080
+EXPOSE 8081
+
+# Set the ASPNETCORE_ENVIRONMENT to Development
+ENV ASPNETCORE_ENVIRONMENT=Development
+# Command to run the application in development mode
+# This allows for features like hot reloading or debugging
+CMD ["dotnet", "watch", "run"]

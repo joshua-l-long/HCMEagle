@@ -8,7 +8,7 @@ namespace Contact.Api.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-[Authorize]
+//[Authorize]
 public class ContactPersonController(IContactPersonService contactPersonService) : ControllerBase
 {
     [HttpPost]
@@ -52,7 +52,7 @@ public class ContactPersonController(IContactPersonService contactPersonService)
 
     [HttpGet]
     [ActivityLog("Reading All Contacts")]
-    [AuthorizePermission("Contacts.Read")]
+    //[AuthorizePermission("Contacts.Read")]
     public async Task<IActionResult> GetAll()
     {
         var contactPersons = await contactPersonService.FindAll();
