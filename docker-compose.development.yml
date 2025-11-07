@@ -34,5 +34,28 @@ services:
       - postgres_dev_data:/var/lib/postgresql/data
       - ./backend/scripts:/docker-entrypoint-initdb.d
 
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD}
+      PGADMIN_CONFIG_SERVER_MODE: 'True'
+      PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED: 'False'
+      PGADMIN_SERVER_JSON_FILE: /pgadmin4/servers.json
+      PGADMIN_CONFIG_UPGRADE_CHECK_ENABLED: 'False'
+      PGADMIN_LISTEN_PORT: 5051
+      PGADMIN_CONFIG_PROXY_X_HOST_COUNT: 1 # Important for Codespaces
+      PGADMIN_CONFIG_PROXY_X_PREFIX_COUNT: 1 # Important for Codespaces
+    volumes:
+      - pgadmin_data_vol:/var/lib/pgadmin
+      - ./pgadmin-config/servers.json:/pgadmin4/servers.json:ro
+      - ./pgadmin-config/config_local.py:/var/lib/pgadmin/config_local.py:ro
+    ports:
+      - "5051:5051"
+    depends_on:
+      - postgres
+
 volumes:
   postgres_dev_data:
+  pgadmin_data_vol:

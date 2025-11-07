@@ -19,6 +19,7 @@
                 "GitHub.copilot",
                 "GitHub.vscode-github-actions",
                 "ms-dotnettools.csdevkit",
+                "ms-dotnettools.vscodeintellicode-csharp",
                 "mtxr.sqltools",
                 "mtxr.sqltools-driver-pg"
             ]
