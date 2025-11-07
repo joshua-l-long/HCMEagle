@@ -1,0 +1,47 @@
+{
+    "image":"mcr.microsoft.com/devcontainers/universal:2",
+    "postCreateCommand": "npm install -g npm@11.6.2 && npm install -g @angular/cli && dotnet tool install --global dotnet-ef",
+    "features": {
+        "ghcr.io/devcontainers/features/docker-in-docker:latest": {},
+        "ghcr.io/devcontainers/features/github-cli:1": {
+            "version": "2"
+        },
+        "ghcr.io/devcontainers/features/powershell:1": {
+            "version": "latest"
+        },
+        "ghcr.io/devcontainers/features/dotnet:1": {
+              "version": "9.0"
+        }
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "GitHub.copilot",
+                "GitHub.vscode-github-actions",
+                "ms-dotnettools.csdevkit",
+                "ms-dotnettools.vscodeintellicode-csharp",
+                "mtxr.sqltools",
+                "mtxr.sqltools-driver-pg"
+            ]
+        },
+        "settings": {
+                "sqltools.connections": [
+                    {
+                        "name": "PostgreSQL",
+                        "driver": "PostgreSQL",
+                        "previewLimit": 50,
+                        "server": "localhost",
+                        "port": 5432,
+                        "database": "Contacts",
+                        "username": "sa",
+                        "password": "PasYourPassword123!"
+                    }
+                ]
+            }
+    },
+    "forwardPorts": [
+        5432,
+        8000,
+        4200
+    ]
+}

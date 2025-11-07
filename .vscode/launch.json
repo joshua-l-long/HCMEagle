@@ -58,6 +58,23 @@
                     "exec -i angular-dotnet_api_1"
                 ]
             }
+        },
+        {
+            "name": ".NET Core Docker Attach",
+            "type": "coreclr",
+            "request": "attach",
+            "processId": "${command:pickRemoteProcess}",
+            "pipeTransport": {
+                "pipeProgram": "docker",
+                "pipeArgs": ["exec", "-i", "api-dev"],
+                "debuggerPath": "/vsdbg/vsdbg",
+                "pipeCwd": "${workspaceFolder}",
+                "quoteArgs": false
+            },
+            "sourceFileMap": {
+                "/src": "${workspaceFolder}/backend/src"
+            }
         }
+
     ]
 }

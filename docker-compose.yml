@@ -3,6 +3,8 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
+    container_name: frontend
+    restart: always
     depends_on:
       - api
     networks:
@@ -12,8 +14,8 @@ services:
     build:
       context: ./backend/src
       dockerfile: Dockerfile
-      args:
-        - configuration=Release
+    container_name: api
+    restart: always
     environment:
       - ASPNETCORE__ENVIRONMENT=${ENVIRONMENT}
       - AppSettings__ConnectionStrings__DefaultConnection=Host=${POSTGRES_HOST};Port=${POSTGRES_PORT};Database=${POSTGRES_DB};Username=${POSTGRES_USER};Password=${POSTGRES_PASSWORD}
@@ -35,6 +37,7 @@ services:
   postgres:
     image: postgres:16-alpine
     container_name: postgres_db
+    restart: always
     environment:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
@@ -46,7 +49,31 @@ services:
       - ./backend/scripts:/docker-entrypoint-initdb.d
     networks:
       - postgres_network
-  
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD}
+      PGADMIN_CONFIG_SERVER_MODE: 'True'
+      PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED: 'False'
+      PGADMIN_SERVER_JSON_FILE: /pgadmin4/servers.json
+      PGADMIN_CONFIG_UPGRADE_CHECK_ENABLED: 'False'
+      PGADMIN_LISTEN_PORT: 5051
+      PGADMIN_CONFIG_PROXY_X_HOST_COUNT: 1 # Important for Codespaces
+      PGADMIN_CONFIG_PROXY_X_PREFIX_COUNT: 1 # Important for Codespaces
+    volumes:
+      - pgadmin_data_vol:/var/lib/pgadmin
+      - ./pgadmin-config/servers.json:/pgadmin4/servers.json:ro
+      - ./pgadmin-config/config_local.py:/var/lib/pgadmin/config_local.py:ro
+    ports:
+      - "5051:5051"
+    networks:
+      - postgres_network
+    depends_on:
+      - postgres
+
   nginx:
     build: loadbalancer
     container_name: nginx
@@ -61,6 +88,7 @@ services:
 
 volumes:
   postgres_data:
+  pgadmin_data_vol:
 
 networks:
   postgres_network:
