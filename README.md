@@ -1,79 +1,78 @@
-# 🚀 Clean Architecture Full-Stack Starter: .NET, Angular, and PostgreSQL
-
-<!-- <p align="center">
-  <img src="docs/logo.png" alt="Clean Architecture Logo" width="150px">
-  <br>
-  <em>Production-ready | Maintainable | Scalable</em>
-</p> -->
-
-<p align="center">
-  <a href="https://github.com/nitin27may/clean-architecture-docker-dotnet-angular/actions/workflows/angular-build.yml">
-    <img src="https://github.com/nitin27may/clean-architecture-docker-dotnet-angular/actions/workflows/angular-build.yml/badge.svg" alt="Angular Build">
-  </a>
-  <a href="https://github.com/nitin27may/clean-architecture-docker-dotnet-angular/actions/workflows/api-build.yml">
-    <img src="https://github.com/nitin27may/clean-architecture-docker-dotnet-angular/actions/workflows/api-build.yml/badge.svg" alt="API Build">
-  </a>
-  <a href="LICENSE">
-    <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="MIT License">
-  </a>
-  <img src="https://img.shields.io/badge/Angular-19-DD0031.svg" alt="Angular 20">
-  <img src="https://img.shields.io/badge/.NET-9-512BD4.svg" alt=".NET 9">
-  <img src="https://img.shields.io/badge/PostgreSQL-16-336791.svg" alt="PostgreSQL 16">
-</p>
-
-<p align="center">
-  
-![Application Demo](docs/screenshots/clean-architecture-demo.gif)
-  
-<em>Contact Management Application with Role-Based Access Control</em>
-</p>
+# 🚀 EAGLE Development Environment
 
 ## ✨ What is this?
 
 A production-ready **full-stack starter kit** built with modern technologies and best practices:
 
-- **Frontend**: Angular 20 with signals, Material Design, and TailwindCSS
+- **Frontend**: Angular 20
 - **Backend**: .NET 9 API with Clean Architecture
-- **Database**: PostgreSQL with Dapper
+- **Database**: PostgreSQL
 - **DevOps**: Docker, GitHub Actions, NGINX
 
-Perfect for developers who want to **focus on business logic** instead of configuring infrastructure.
-
-## 🏗️ Why Clean Architecture?
-
-<p align="center">
-  <img src="docs/screenshots/clean-architecture.png" alt="Clean Architecture Diagram" width="60%">
+## 🚀 Quick Start (Eagle .Net and Angular development)
+<p>
+!!!Note: all login credentials for Postgres and pgAdmin are contained in .env file.
+If usernames and passwords are updated (recommended for production) they need to be updated in the backend connection string located at /backend/src/Contact.Api/appsettings.json. All other areas should reference the env variable.
 </p>
 
-Clean Architecture provides **significant benefits** for your application:
-
-- ✅ **Maintainability**: Separate concerns to make your code easier to understand and modify
-- ✅ **Testability**: Independent components that can be tested in isolation
-- ✅ **Flexibility**: Swap frameworks or technologies without rewriting your core business logic
-- ✅ **Scalability**: Grow your application with a clear structure that new team members can quickly understand
-
-[Clean Architecture Series](./docs/architecture-series.md) - Read more about it!
-
-## 🚀 Quick Start
-
 ```bash
-# Clone the repository
-git clone https://github.com/nitin27may/clean-architecture-docker-dotnet-angular.git clean-app
-cd clean-app
-
-# Create .env file (required)
+# create .env file
 cp .env.example .env
 
-# Start all services with Docker Compose
-docker-compose up
+# Start .net angular eagle development services with Docker Compose
+docker compose -f docker-compose.yml -f docker-compose.development.yml up
 ```
 
 🔗 Then access:
-- Frontend: http://localhost
-- API: http://localhost/api
-- Swagger: http://localhost/swagger
+- Frontend: 4200 port through ports tab
+- API: 8000 port through ports tab
+- PgAdmin: 5051 port through ports tab
+- Postgres: 5432 port (attach sqlTools extention or use pgAdmin)
+- Swagger: https://siteurl:8000/swagger
 
-### 👤 Default Users
+## 🚀 Quick Start (Eagle .Net and Angular production)
+
+```bash
+# create .env file if not already created
+cp .env.example .env
+
+# Start .net angular eagle development services with Docker Compose
+docker compose up -d
+```
+
+🔗 Then access:
+- Frontend: 80 port through ports tab
+- PgAdmin: 5051 port through ports tab
+- Postgres: 5432 port (attach sqlTools extention or use pgAdmin)
+
+## 🚀 Quick Start (schema processor manual start)
+
+```bash
+# create .env file if not already created
+cp .env.example .env
+
+# Start the environment 
+docker compose -f docker-compose.schemaprocessor.yml up -d
+```
+
+🔗 Then access:
+- PgAdmin: 5051 port through ports tab
+- Postgres: 5432 port (attach sqlTools extention or use pgAdmin)
+
+### Access PostgreSQL Directly
+
+```bash
+docker exec -it postgres psql -U testuser -d Contacts
+```
+
+Or connect from your host:
+- Host: `locaslhost`
+- Port: `5432`
+- Database: `db name from .env`
+- Username: `username from .env`
+- Password: `password from .env`
+
+### 👤 Default Users for demo application
 
 | Username | Password | Role |
 |----------|----------|------|
@@ -81,78 +80,45 @@ docker-compose up
 | editor@gmail.com | P@ssword#321 | Editor |
 | reader@gmail.com | P@ssword#321 | Reader |
 
-## 🔥 Key Features
 
-<table>
-  <tr>
-    <td width="33%">
-      <h3>📱 Modern Frontend</h3>
-      <ul>
-        <li>Angular 20 with standalone components</li>
-        <li>Signal-based state management</li>
-        <li>Material Design + TailwindCSS</li>
-        <li>Dark/light theme support</li>
-        <li>Responsive mobile-first design</li>
-         <li>Role Based Routing and Menu</li>
-      </ul>
-    </td>
-    <td width="33%">
-      <h3>🔒 Secure Backend</h3>
-      <ul>
-        <li>Clean Architecture implementation</li>
-        <li>Generic Repository pattern</li>
-        <li>JWT authentication</li>
-        <li>Role-based permissions</li>
-        <li>User Activity Logging</li>
-        <li>Golbal Exception Handling</li>
-        <li>PostgreSQL with Dapper</li>
-      </ul>
-    </td>
-    <td width="33%">
-      <h3>🚢 DevOps Ready</h3>
-      <ul>
-        <li>Docker containerization</li>
-        <li>GitHub Actions workflows</li>
-        <li>NGINX reverse proxy</li>
-        <li>Multi-environment configs</li>
-        <li>Database migrations</li>
-      </ul>
-    </td>
-  </tr>
-</table>
+###Useful Docker Commands
 
-## 🧩 Architecture
+## Rebuilding Containers
 
-<p align="center">
-  <img src="docs/screenshots/architecture.png" alt="Container Architecture" width="80%">
-  <br>
-  <em>Container Architecture Overview</em>
-</p>
+If you make changes to Dockerfiles, docker-compose.yml, or switching programs:
 
-## 📚 Documentation
+```bash
+docker compose up --build
+#if you need to run a program outside of main eagle application
+docker compose -f docker-compose.filename.yml up --build
+```
 
-📖 Comprehensive documentation is available:
+## Stopping the Environment
 
-- [Development Guide](./docs/development-guide.md) - Get started with development
-- [Frontend Documentation](./docs/frontend.md) - Angular architecture details
-- [Backend Documentation](./docs/backend.md) - .NET API implementation
-- [Feature List](./docs/visual-feature-guide.md) - Detailed feature breakdown
-- [Clean Architecture Series](./docs/architecture-series.md) - In-depth articles
-- [Roadmap](./docs/roadmap.md) - Upcoming features
+```bash
+docker compose down
+```
 
+## To remove volumes (database data will be lost):
 
-## 🤝 Contributing
+```bash
+docker-compose down -v
+```
 
-We welcome contributions! See our [contributing guide](./CONTRIBUTING.md) for details on how to get involved.
+```bash
+# View container logs
+docker logs frontend
+docker logs api
+docker logs db
 
-## 📄 License
+# Access a container's shell
+docker exec -it api /bin/bash
+docker exec -it db psql -U postgres contacts
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+# Rebuild a specific service
+docker compose build api
+docker compose up -d api
 
-## 📧 Contact
-
-For questions or support, please contact Nitin Singh at nitin27may@gmail.com.
-
-## 🌟 Star the Repository
-
-If you find this project useful, please consider giving it a star on GitHub to show your support!
+#run specific docker-compose file
+docker compose -f docker-compose.filename.yml
+```

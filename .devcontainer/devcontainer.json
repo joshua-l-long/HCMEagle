@@ -43,5 +43,31 @@
         5432,
         8000,
         4200
-    ]
+    ],
+    "portsAttributes": {
+    "5050": {
+      "label": "pgAdminSP",
+      "visibility": "public"
+    },
+    "5051": {
+      "label": "pgAdmin",
+      "visibility": "public"
+    },
+    "5432": {
+      "label": "PostgreSQL",
+      "visibility": "private"
+    },
+    "4200": {
+      "label": "dev frontend",
+      "visibility": "private"
+    },
+    "8000": {
+      "label": "dev api",
+      "visibility": "private"
+    },
+    "80": {
+      "label": "Prod App",
+      "visibility": "private"
+    }
+  }
 }

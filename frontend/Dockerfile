@@ -1,5 +1,5 @@
 # Create image based off of the official Node 22 image
-FROM node:22-alpine as builder
+FROM node:22-alpine3.22 as builder
 
 # Copy dependency definitions
 COPY package*.json ./
@@ -19,7 +19,7 @@ RUN npm run build
 # Stage 2: Serve app with nginx server
 
 # Use official nginx image as the base image
-FROM nginx:alpine
+FROM nginx:alpine3.22
 
 # Remove default Nginx website and configuration
 RUN rm -rf /usr/share/nginx/html/* /etc/nginx/conf.d/default.conf
