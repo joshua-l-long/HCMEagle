@@ -104,6 +104,7 @@ docker compose down
 ```bash
 docker-compose down -v
 ```
+## Other commands
 
 ```bash
 # View container logs
