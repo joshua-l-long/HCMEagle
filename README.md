@@ -81,9 +81,9 @@ Or connect from your host:
 | reader@gmail.com | P@ssword#321 | Reader |
 
 
-###Useful Docker Commands
+## Useful Docker Commands
 
-## Rebuilding Containers
+### Rebuilding Containers
 
 If you make changes to Dockerfiles, docker-compose.yml, or switching programs:
 
@@ -93,18 +93,18 @@ docker compose up --build
 docker compose -f docker-compose.filename.yml up --build
 ```
 
-## Stopping the Environment
+### Stopping the Environment
 
 ```bash
 docker compose down
 ```
 
-## To remove volumes (database data will be lost):
+### To remove volumes (database data will be lost):
 
 ```bash
 docker-compose down -v
 ```
-## Other commands
+### Other commands
 
 ```bash
 # View container logs
